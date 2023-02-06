@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  gap: 0 10px;
+  justify-content: center;
+
+  margin: 10px 0;
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.wrapper a {
+  cursor: pointer;
+}
