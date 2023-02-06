@@ -8,3 +8,37 @@
   justify-content: flex-end;
   gap: 10px;
 }
+
+.wrapper form input[type='text'],
+.wrapper form input[type='number'],
+.wrapper form button[type='submit'] {
+  width: calc(50% - 5px);
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.wrapper form input[type='checkbox'] {
+}
+
+.wrapper form button[type='submit'] {
+  cursor: pointer;
+  font-size: var(--font-size-m);
+}
+
+.wrapper form label {
+  font-size: var(--font-size-m);
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.wrapper form > div {
+  width: calc(50% - 5px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
