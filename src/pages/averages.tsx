@@ -24,12 +24,15 @@ export default function Averages() {
         method: 'POST',
         variables,
       });
-      console.log(result);
       setList((prev) => [...prev, result]);
     } catch (err) {}
   };
-  console.log(list);
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    fetcher<AverageData[]>({ endpoint: '/history', method: 'GET' }).then((data) =>
+      setList(data),
+    );
+  }, []);
 
   return (
     <>

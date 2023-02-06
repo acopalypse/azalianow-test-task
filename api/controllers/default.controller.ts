@@ -8,7 +8,9 @@ import DB_MESSAGES from '../utils/db/db_messages';
 export class Controller {
   private messages = DB_MESSAGES;
   private averages = DB_AVERAGES;
-  public data: EndpointResult<MessageData[] | AverageData | NotFound | Error>;
+  public data: EndpointResult<
+    MessageData[] | AverageData | AverageData[] | NotFound | Error
+  >;
 
   constructor(private readonly router: RouterResult) {
     this.data = this.init();
@@ -22,6 +24,10 @@ export class Controller {
       return this.getAveragesData();
     }
 
+    if (this.router.endpoint === '/history' && this.router.method === 'GET') {
+      return this.getHistoryData();
+    }
+
     return this.get404();
   }
 
@@ -32,11 +38,11 @@ export class Controller {
         author: this.router.variables.author,
       });
     }
+
     return { data: this.messages };
   }
 
   private getAveragesData(): EndpointResult<AverageData | Error> {
-    console.log('variables:', this.router.variables);
     if (this.router.variables) {
       const output: AverageData = {
         number: Math.abs(this.router.variables.number),
@@ -49,11 +55,15 @@ export class Controller {
         this.averages[this.averages.length - 1],
       );
       this.averages.push(output);
-      console.log('output:', output);
+
       return { data: output };
     }
 
     return { data: { message: 'Variables not found...' } };
+  }
+
+  private getHistoryData(): EndpointResult<AverageData[]> {
+    return { data: this.averages };
   }
 
   private get404(): EndpointResult<NotFound> {
