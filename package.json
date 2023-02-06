@@ -3,22 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"ts-node --project tsconfig.api.json api/server.ts\" \"next dev\"",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "concurrently \"ts-node --project tsconfig.api.json api/server.ts\" \"next start\"",
+    "lint": "next lint",
+    "back:start": "ts-node --project tsconfig.api.json api/server.ts",
+    "front:dev": "next dev"
   },
   "dependencies": {
     "@next/font": "13.1.6",
-    "@types/node": "18.11.19",
+    "@types/node": "^18.11.19",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
+    "concurrently": "^7.6.0",
+    "dotenv": "^16.0.3",
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
     "normalize.css": "^8.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "ts-node": "^10.9.1",
     "typescript": "4.9.5"
   }
 }
