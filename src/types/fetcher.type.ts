@@ -14,6 +14,8 @@ export interface MessageData {
 }
 
 export interface AverageData {
-  num: number;
+  number: number;
   result?: number;
+  isNegative: boolean;
+  isFractional: boolean;
 }
