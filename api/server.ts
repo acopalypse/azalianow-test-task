@@ -1,8 +1,8 @@
 import * as http from 'http';
 import * as dotenv from 'dotenv';
 import { Router } from './routers/default.router';
-import headers from './utils/headers';
 import { Controller } from './controllers/default.controller';
+import headers from './utils/headers';
 
 dotenv.config();
 
@@ -12,16 +12,18 @@ http
       endpoint: req.url || '',
       method: req.method || '',
     });
-    res.writeHead(router.result.code, headers);
     const controller = new Controller(router.result);
+    res.writeHead(router.result.code, headers);
+
     req.on('data', (data: string) => {
       router.setRequestVariables(JSON.parse(data));
       if (router.result.variables) {
         controller.update();
       }
     });
+
     req.on('end', () => {
-      console.log('end:', controller.data);
+      // console.log('end:', controller.data);
       res.end(JSON.stringify(controller.data));
     });
   })

@@ -34,10 +34,10 @@ export default function Messages({ data }: FetcherResult<MessageData[]>) {
           {data.map((item, index) => (
             <div key={`${item.author}-${index}`}>
               <p>
-                <span>Message</span> {item.message}
+                <span>Message:</span> {item.message}
               </p>
               <p>
-                <span>Author</span> {item.author}
+                <span>Author:</span> {item.author}
               </p>
             </div>
           ))}

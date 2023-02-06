@@ -21,14 +21,15 @@ export class Controller {
   }
 
   private getMessagesData(): EndpointResult<MessageData[]> {
-    if (this.router.variables?.text && this.router.variables?.author) {
+    if (this.router.variables?.message && this.router.variables?.author) {
       this.messages.push({
-        message: this.router.variables.messagge,
+        message: this.router.variables.message,
         author: this.router.variables.author,
       });
     }
     return { data: this.messages };
   }
+
   private get404(): EndpointResult<NotFound> {
     return { data: { message: 'Response not found...' } };
   }
