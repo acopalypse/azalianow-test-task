@@ -24,11 +24,11 @@ export default function Averages() {
         method: 'POST',
         variables,
       });
-
+      console.log(result);
       setList((prev) => [...prev, result]);
     } catch (err) {}
   };
-
+  console.log(list);
   useEffect(() => {}, []);
 
   return (
@@ -40,7 +40,7 @@ export default function Averages() {
               <p>
                 <span>Number:</span> {item.isNegative && '-'}
                 {item.number}
-                <span>Result:</span> {item.result || 'empty'}
+                <span>Result:</span> {item.result}
               </p>
             </div>
           ))}

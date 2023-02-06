@@ -17,13 +17,16 @@ http
 
     req.on('data', (data: string) => {
       router.setRequestVariables(JSON.parse(data));
-      if (router.result.variables) {
-        controller.update();
-      }
+      console.log('data:', router.result.variables);
     });
 
     req.on('end', () => {
-      // console.log('end:', controller.data);
+      if (router.result.variables) {
+        controller.update();
+      }
+      console.log(controller);
+      console.log('end:', controller.data);
+      console.log('end what:', router.result.variables);
       res.end(JSON.stringify(controller.data));
     });
   })

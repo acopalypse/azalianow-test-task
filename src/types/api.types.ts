@@ -27,3 +27,7 @@ export interface EndpointResult<T> {
 export interface NotFound {
   message: string;
 }
+
+export interface Error {
+  message: string;
+}
