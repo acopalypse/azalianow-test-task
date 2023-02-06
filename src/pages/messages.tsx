@@ -8,9 +8,13 @@ import fetcher from '@/utils/fetcher';
 export default function Messages({ data }: FetcherResult<MessageData[]>) {
   const onSubmit = async (e: React.SyntheticEvent) => {
     const target = e.target as typeof e.target & {
-      [key: string]: { value: string };
+      message: { value?: string };
+      author: { value?: string };
     };
-    const variables = { message: target.text?.value, author: target.author?.value };
+    const variables = {
+      message: target.message?.value,
+      author: target.author?.value,
+    };
 
     try {
       await fetcher<MessageData[]>({
@@ -42,7 +46,7 @@ export default function Messages({ data }: FetcherResult<MessageData[]>) {
       <section style={{ width: '50%' }}>
         <Form onSubmit={onSubmit}>
           <input type={'text'} name='author' placeholder='author' required />
-          <input type={'text'} name='text' placeholder='message' required />
+          <input type={'text'} name='message' placeholder='message' required />
           <button type={'submit'}>разместить сообщение</button>
         </Form>
       </section>
