@@ -1,4 +1,4 @@
-import { FetcherOptions, FetcherResults } from '@/types/fetcher.type';
+import { FetcherOptions, FetcherResult } from '@/types/fetcher.type';
 
 const fetcher = async <TYPE>(options: FetcherOptions): Promise<TYPE> => {
   const body = (options.variables && JSON.stringify(options.variables)) || undefined;
@@ -13,7 +13,7 @@ const fetcher = async <TYPE>(options: FetcherOptions): Promise<TYPE> => {
     },
   );
 
-  const { data }: FetcherResults<TYPE> = await res.json();
+  const { data }: FetcherResult<TYPE> = await res.json();
 
   return data;
 };

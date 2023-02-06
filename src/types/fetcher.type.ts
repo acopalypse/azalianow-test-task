@@ -4,13 +4,13 @@ export interface FetcherOptions {
   variables?: { [key: string]: string | any | undefined };
 }
 
-export interface FetcherResults<T> {
+export interface FetcherResult<T> {
   data: T;
 }
 
 export interface MessageData {
   author: string;
-  text: string;
+  message: string;
 }
 
 export interface AverageData {
