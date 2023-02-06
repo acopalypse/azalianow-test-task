@@ -23,7 +23,7 @@ export default function Messages({ data }: FetcherResult<MessageData[]>) {
         variables,
       });
     } catch (err) {
-      console.log('Err at fetch', err);
+      console.log('Err at fetch messages', err);
     }
   };
 

@@ -5,12 +5,16 @@ import List from '@/components/blocks/List/List';
 import fetcher from '@/utils/fetcher';
 
 export default function Averages() {
-  const [list, setList] = useState<AverageData[]>([]);
+  const [list, setList] = useState<{ data: AverageData[]; loading: boolean }>({
+    loading: false,
+    data: [],
+  });
+
   const onSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
       const target = e.target as typeof e.target & {
-        number: { value?: number };
+        number: { value?: string };
         isNegative: { checked: boolean };
         isFractional: { checked: boolean };
       };
@@ -19,30 +23,44 @@ export default function Averages() {
         isNegative: target.isNegative.checked,
         isFractional: target.isFractional.checked,
       };
+
+      if (variables.number === '') return;
+
+      setList((prev) => ({ ...prev, loading: true }));
       const result = await fetcher<AverageData>({
         endpoint: '/averages',
         method: 'POST',
         variables,
       });
-      setList((prev) => [...prev, result]);
-    } catch (err) {}
+
+      setList((prev) => {
+        if (result.hasOwnProperty('number')) {
+          return { data: [...prev.data, result], loading: false };
+        }
+        return { ...prev, loading: false };
+      });
+    } catch (err) {
+      console.log('Err at fetch averages', err);
+    }
   };
 
   useEffect(() => {
-    fetcher<AverageData[]>({ endpoint: '/history', method: 'GET' }).then((data) =>
-      setList(data),
-    );
+    fetcher<AverageData[]>({ endpoint: '/history', method: 'GET' })
+      .then((data) => setList({ data: [...data], loading: false }))
+      .catch((err) => console.log('Err at fetch history', err));
   }, []);
 
   return (
     <>
       <section style={{ width: '50%' }}>
         <List>
-          {list.map((item, index) => (
+          {list.data.map((item, index) => (
             <div key={`${item.number}-${index}`}>
               <p>
                 <span>Number:</span> {item.isNegative && '-'}
                 {item.number}
+              </p>
+              <p>
                 <span>Result:</span> {item.result}
               </p>
             </div>
@@ -67,7 +85,9 @@ export default function Averages() {
               Fractional
             </label>
           </div>
-          <button type={'submit'}>отправить и получить среднее</button>
+          <button disabled={list.loading} type={'submit'}>
+            отправить и получить среднее
+          </button>
         </Form>
       </section>
     </>

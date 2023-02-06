@@ -45,18 +45,18 @@ export class Controller {
   private getAveragesData(): EndpointResult<AverageData | Error> {
     if (this.router.variables) {
       const output: AverageData = {
-        number: Math.abs(this.router.variables.number),
+        number: this.router.variables.number,
         isNegative: this.router.variables.isNegative,
         isFractional: this.router.variables.isFractional,
       };
-
-      output.result = calculateAverage(
-        output,
-        this.averages[this.averages.length - 1],
-      );
-      this.averages.push(output);
-
-      return { data: output };
+      if (isFinite(output.number)) {
+        output.result = calculateAverage(
+          output,
+          this.averages[this.averages.length - 1],
+        );
+        this.averages.push(output);
+        return { data: output };
+      }
     }
 
     return { data: { message: 'Variables not found...' } };
