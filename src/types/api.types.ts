@@ -19,3 +19,11 @@ export interface RouterResult extends RoutersList {
   code: number;
   variables?: Headers['variables'];
 }
+
+export interface EndpointResult<T> {
+  data: T;
+}
+
+export interface NotFound {
+  message: string;
+}

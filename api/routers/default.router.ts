@@ -1,5 +1,5 @@
-import DB_ROUTERS from 'api/utils/db/db_routers';
 import { Headers, Methods, RouterResult, RoutersList } from '@/types/api.types';
+import DB_ROUTERS from '../utils/db/db_routers';
 
 export class Router {
   private readonly routers = DB_ROUTERS;
@@ -20,7 +20,8 @@ export class Router {
   private findRouter(): number {
     if (
       this.routers[this.headers.endpoint]?.find(
-        (method: Methods) => this.headers.method === method,
+        (method: Methods) =>
+          this.headers.method === method || this.headers.method === 'OPTIONS',
       )
     ) {
       return 200;

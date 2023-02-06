@@ -5,4 +5,5 @@ const DB_ROUTERS: Routers = {
   '/averages': ['POST'],
   '/history': ['GET'],
 };
+
 export default DB_ROUTERS;
