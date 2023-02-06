@@ -6,7 +6,22 @@ import { MessageData, FetcherResult } from '@/types/fetcher.type';
 import fetcher from '@/utils/fetcher';
 
 export default function Messages({ data }: FetcherResult<MessageData[]>) {
-  const onSubmit = async (e: React.SyntheticEvent) => {};
+  const onSubmit = async (e: React.SyntheticEvent) => {
+    const target = e.target as typeof e.target & {
+      [key: string]: { value: string };
+    };
+    const variables = { message: target.text?.value, author: target.author?.value };
+
+    try {
+      await fetcher<MessageData[]>({
+        endpoint: '/messages',
+        method: 'POST',
+        variables,
+      });
+    } catch (err) {
+      console.log('Err at fetch', err);
+    }
+  };
 
   return (
     <>
