@@ -9,3 +9,13 @@ export interface Headers {
 export interface Routers {
   [key: string]: Methods[];
 }
+
+export interface RoutersList {
+  endpoint: string;
+  method: Methods;
+}
+
+export interface RouterResult extends RoutersList {
+  code: number;
+  variables?: Headers['variables'];
+}
