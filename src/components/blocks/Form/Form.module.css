@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+}
+
+.wrapper form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
