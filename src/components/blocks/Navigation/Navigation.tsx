@@ -8,7 +8,11 @@ const Navigation = () => {
     { id: 'dl-id-0', href: '/', name: 'Home' },
     { id: 'dl-id-1', href: '/messages', name: 'Messages' },
     { id: 'dl-id-2', href: '/averages', name: 'Averages' },
-    { id: 'dl-id-3', href: '/', name: 'GitHub' },
+    {
+      id: 'dl-id-3',
+      href: 'https://github.com/acopalypse/azalianow-test-task',
+      name: 'GitHub',
+    },
   ];
 
   return (
